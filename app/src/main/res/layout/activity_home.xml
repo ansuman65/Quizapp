@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rootLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background">
+
+    <!-- Card-style fragment container for modern look -->
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="12dp"
+        android:layout_marginBottom="76dp"
+        android:elevation="8dp"
+        android:radius="16dp"
+        app:cardBackgroundColor="@color/background"
+        app:cardElevation="6dp">
+
+        <FrameLayout
+            android:id="@+id/home_fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+    </androidx.cardview.widget.CardView>
+
+    <!-- Bottom Navigation Bar with elevation and ripple -->
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottomNav"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:background="@color/surface_dark"
+        app:itemIconTint="@color/text_primary"
+        app:itemTextColor="@color/text_primary"
+        app:labelVisibilityMode="labeled"
+        app:elevation="12dp"
+        app:menu="@menu/bottom_nav_menu" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Primary accent colors -->
+    <color name="red_accent">#FF6B6B</color>
+    <color name="orange_accent">#FFA94D</color>
+    <color name="blue_accent">#4D96FF</color>
+    <color name="purple_accent">#B983FF</color>
+    <color name="surface_dark">#FFFFFF</color> <!-- or #F2F2F2 for light gray -->
+    <color name="text_secondary">#B0B0B0</color> <!-- light gray for dark bg -->
+    <color name="green_accent">#4CAF50</color>
+
+    <!-- Background + text -->
+    <color name="background">#FFFFFF</color>
+    <color name="text_primary">#000000</color>
+    <color name="button_text_light">#FFFFFF</color>
+</resources>

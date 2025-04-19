@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/background"
+    android:padding="24dp">
+
+    <!-- App Name Header -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Quiz Master"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary"
+        android:gravity="center"
+        android:layout_marginBottom="30dp" />
+
+    <!-- Centered content -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:gravity="center_horizontal|center_vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select a Quiz"
+            android:textSize="22sp"
+            android:textStyle="bold"
+            android:textColor="@color/text_primary"
+            android:layout_marginBottom="24dp" />
+
+        <Button
+            android:id="@+id/javaQuizBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="JAVA QUIZ"
+            android:textAllCaps="true"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/red_accent"
+            android:elevation="4dp"
+            android:padding="12dp"
+            android:textColor="@color/button_text_light"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/probQuizBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PROBABILITY QUIZ"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/orange_accent"
+            android:elevation="4dp"
+            android:padding="12dp"
+            android:textColor="@color/button_text_light"
+            android:textSize="16sp" />
+
+        <Button
+            android:id="@+id/currentAffairsBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="CURRENT AFFAIRS IN INDIA QUIZ"
+            android:layout_marginBottom="16dp"
+            android:backgroundTint="@color/blue_accent"
+            android:elevation="4dp"
+            android:padding="12dp"
+            android:textColor="@color/button_text_light"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/psychometricBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="PSYCHOMETRIC QUIZ"
+            android:backgroundTint="@color/purple_accent"
+            android:elevation="4dp"
+            android:padding="12dp"
+            android:textColor="@color/button_text_light"
+            android:textSize="16sp" />
+    </LinearLayout>
+</LinearLayout>

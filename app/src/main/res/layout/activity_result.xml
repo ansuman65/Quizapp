@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:gravity="center"
+    android:background="@color/background">
+
+    <!-- Score Display -->
+    <TextView
+        android:id="@+id/resultText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Your Score: 0"
+        android:textSize="26sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary"
+        android:gravity="center"
+        android:layout_marginBottom="40dp" />
+
+    <!-- Restart Quiz Button -->
+    <Button
+        android:id="@+id/restartButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Restart Quiz"
+        android:backgroundTint="@color/orange_accent"
+        android:textColor="@color/button_text_light"
+        android:textSize="16sp"
+        android:layout_marginBottom="16dp"
+        android:paddingVertical="12dp"
+        android:layout_marginTop="8dp" />
+
+    <!-- Back to Home Button -->
+    <Button
+        android:id="@+id/homeButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Back to Home"
+        android:backgroundTint="@color/red_accent"
+        android:textColor="@color/button_text_light"
+        android:textSize="16sp"
+        android:paddingVertical="12dp" />
+</LinearLayout>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="20dp"
+    android:background="@color/background">
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/quizTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🏆 Leaderboard (Top 5 Per Quiz)"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- Score list -->
+    <ListView
+        android:id="@+id/leaderboardListView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        android:padding="4dp"
+        android:listSelector="@android:color/transparent"
+        android:background="@android:color/transparent"/>
+</LinearLayout>

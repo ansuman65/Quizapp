@@ -15,7 +15,7 @@ import java.util.Set;
 public class DBHelper extends SQLiteOpenHelper {
 
     public static final String DB_NAME = "QuizApp.db";
-    public static final int DB_VERSION = 5;
+    public static final int DB_VERSION = 9;
 
     public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -27,7 +27,11 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("CREATE TABLE IF NOT EXISTS users (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 "username TEXT UNIQUE, " +
-                "password TEXT)");
+                "password TEXT, " +
+                "name TEXT, " +
+                "age INTEGER, " +
+                "gender TEXT)");
+
 
         // Questions table
         db.execSQL("CREATE TABLE IF NOT EXISTS questions (" +
@@ -69,6 +73,17 @@ public class DBHelper extends SQLiteOpenHelper {
         return quizNames;
     }
 
+    public String getGenderForUser(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT gender FROM users WHERE username = ?", new String[]{username});
+        String gender = null;
+        if (cursor.moveToFirst()) {
+            gender = cursor.getString(0);
+        }
+        cursor.close();
+        return gender;
+    }
+
     // get top 5 scores for a quiz
     public List<String> getTopScoresForQuiz(String quizName) {
         SQLiteDatabase db = this.getReadableDatabase();
@@ -88,7 +103,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public int getQuizAttemptCount(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery("SELECT COUNT(DISTINCT quiz_name) FROM scores WHERE username = ?", new String[]{username});
+        Cursor cursor = db.rawQuery("SELECT COUNT(*) FROM scores WHERE username = ?", new String[]{username});
         int count = 0;
         if (cursor.moveToFirst()) {
             count = cursor.getInt(0);
@@ -98,28 +113,36 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
+
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS users");
         db.execSQL("DROP TABLE IF EXISTS questions");
-        onCreate(db);
+        db.execSQL("DROP TABLE IF EXISTS scores"); // ← this was missing
+        onCreate(db); // recreate all tables with updated schema
     }
 
+
     // Sign up (register)
-    public boolean registerUser(String username, String password) {
+    public boolean registerUser(String username, String password, String name, int age, String gender) {
         SQLiteDatabase db = this.getWritableDatabase();
         try {
-            String query = "INSERT INTO users (username, password) VALUES (?, ?)";
-            android.database.sqlite.SQLiteStatement stmt = db.compileStatement(query);
-            stmt.bindString(1, username);
-            stmt.bindString(2, password);
-            stmt.executeInsert();
-            return true;
+            ContentValues values = new ContentValues();
+            values.put("username", username);
+            values.put("password", password);
+            values.put("name", name);
+            values.put("age", age);
+            values.put("gender", gender);
+
+            long result = db.insert("users", null, values);
+            return result != -1;
         } catch (Exception e) {
-            e.printStackTrace();  // optional: log the error
+            e.printStackTrace();
             return false;
         }
     }
+
+
 
 
     // Login
@@ -131,6 +154,31 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         return result;
     }
+
+    public int getBestScoreForUser(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT MAX(score) FROM scores WHERE username = ?", new String[]{username});
+        int best = 0;
+        if (cursor.moveToFirst()) {
+            best = cursor.getInt(0);
+        }
+        cursor.close();
+        return best;
+    }
+
+    public String[] getUserDetails(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT name, age, gender FROM users WHERE username = ?", new String[]{username});
+        String[] result = new String[3];
+        if (cursor.moveToFirst()) {
+            result[0] = cursor.getString(0); // name
+            result[1] = String.valueOf(cursor.getInt(1)); // age
+            result[2] = cursor.getString(2); // gender
+        }
+        cursor.close();
+        return result;
+    }
+
 
     private void insertSampleQuestions(SQLiteDatabase db) {
         db.execSQL("INSERT INTO questions (quiz_name, question, option1, option2, option3, option4, answer) VALUES " +

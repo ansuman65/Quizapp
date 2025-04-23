@@ -42,7 +42,6 @@ public class LoginActivity extends AppCompatActivity {
                 prefs.edit().putString("username", username).apply();
 
                 Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                intent.putExtra("username", username); // optional
                 startActivity(intent);
                 finish();
             } else {

@@ -3,15 +3,18 @@ package com.example.quizapp;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    EditText usernameInput, passwordInput, confirmPasswordInput;
+    EditText usernameInput, passwordInput, confirmPasswordInput, nameInput, ageInput;
+    Spinner genderSpinner;
     Button registerBtn, goToLoginBtn;
     DBHelper dbHelper;
 
@@ -19,6 +22,11 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
+
+        // Initialize input fields
+        nameInput = findViewById(R.id.nameInput);
+        ageInput = findViewById(R.id.ageInput);
+        genderSpinner = findViewById(R.id.genderSpinner);
 
         usernameInput = findViewById(R.id.usernameInput);
         passwordInput = findViewById(R.id.passwordInput);
@@ -28,12 +36,26 @@ public class SignUpActivity extends AppCompatActivity {
 
         dbHelper = new DBHelper(this);
 
+        // Set gender spinner options
+        ArrayAdapter<CharSequence> genderAdapter = ArrayAdapter.createFromResource(
+                this,
+                R.array.gender_options,
+                android.R.layout.simple_spinner_item
+        );
+        genderAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        genderSpinner.setAdapter(genderAdapter);
+
         registerBtn.setOnClickListener(v -> {
             String username = usernameInput.getText().toString().trim().toLowerCase();
             String password = passwordInput.getText().toString();
             String confirmPassword = confirmPasswordInput.getText().toString();
+            String name = nameInput.getText().toString().trim();
+            String ageStr = ageInput.getText().toString().trim();
+            String gender = genderSpinner.getSelectedItem().toString();
 
-            if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()) {
+            // Validations
+            if (username.isEmpty() || password.isEmpty() || confirmPassword.isEmpty()
+                    || name.isEmpty() || ageStr.isEmpty()) {
                 Toast.makeText(this, "All fields are required", Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -48,9 +70,17 @@ public class SignUpActivity extends AppCompatActivity {
                 return;
             }
 
-            boolean success = dbHelper.registerUser(username, password);
+            int age;
+            try {
+                age = Integer.parseInt(ageStr);
+            } catch (NumberFormatException e) {
+                Toast.makeText(this, "Invalid age", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            // Save user
+            boolean success = dbHelper.registerUser(username, password, name, age, gender);
             if (success) {
-                // ✅ save username in SharedPreferences
                 SharedPreferences prefs = getSharedPreferences("quiz_prefs", MODE_PRIVATE);
                 prefs.edit().putString("username", username).apply();
 

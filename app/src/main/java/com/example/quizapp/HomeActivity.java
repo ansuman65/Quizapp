@@ -31,7 +31,7 @@ public class HomeActivity extends AppCompatActivity {
             if (itemId == R.id.nav_quiz) {
                 selectedFragment = new QuizListFragment();
             } else if (itemId == R.id.nav_profile) {
-                selectedFragment = ProfileFragment.newInstance(currentUsername);
+                selectedFragment = new ProfileFragment();
             } else if (itemId == R.id.nav_leaderboard) {
                 selectedFragment = new LeaderboardFragment();
             } else if (itemId == R.id.nav_more) {

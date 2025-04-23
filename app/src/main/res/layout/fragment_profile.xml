@@ -3,38 +3,71 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:gravity="center"
+    android:gravity="center_horizontal"
     android:padding="24dp"
     android:background="@color/background">
 
-    <!-- Name -->
-    <TextView
-        android:id="@+id/nameText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Name Placeholder"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:textColor="@color/text_primary"
-        android:layout_marginBottom="8dp" />
+    <!-- Profile Image (dynamic based on gender) -->
+    <ImageView
+        android:id="@+id/profileImage"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@mipmap/ic_pfp"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="Profile"
+        android:scaleType="centerCrop"
+        android:background="@drawable/circle_background" />
 
     <!-- Username -->
     <TextView
         android:id="@+id/usernameText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Username Placeholder"
+        android:text="Username"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/text_primary"
+        android:layout_marginBottom="12dp" />
+
+    <TextView
+        android:id="@+id/nameAgeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Name: - | Age: -"
         android:textSize="16sp"
         android:textColor="@color/text_secondary"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="12dp"/>
 
-    <!-- Quizzes Attempted -->
+
+    <!-- Attempts -->
     <TextView
         android:id="@+id/attemptsText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Quizzes attempted: 0"
+        android:text="Quizzes Attempted: 0"
         android:textSize="16sp"
         android:textColor="@color/text_secondary"
-        android:layout_marginTop="8dp" />
+        android:layout_marginBottom="6dp" />
+
+    <!-- Best Score -->
+    <TextView
+        android:id="@+id/bestScoreText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Best Score: 0"
+        android:textSize="16sp"
+        android:textColor="@color/text_secondary"
+        android:layout_marginBottom="32dp" />
+
+    <!-- Logout Button -->
+    <Button
+        android:id="@+id/logoutButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:textAllCaps="false"
+        android:backgroundTint="@color/red_accent"
+        android:textColor="@color/button_text_light"
+        android:textSize="16sp"
+        android:background="@drawable/rounded_button_red"/>
 </LinearLayout>

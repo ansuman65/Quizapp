@@ -1,16 +1,18 @@
 package com.example.quizapp;
 
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.*;
-import android.widget.TextView;
 import androidx.annotation.*;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import java.util.*;
 
 public class LeaderboardFragment extends Fragment {
 
     private DBHelper dbHelper;
+    private RecyclerView leaderboardRecyclerView;
 
     @Nullable
     @Override
@@ -18,35 +20,23 @@ public class LeaderboardFragment extends Fragment {
                              @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
 
-        TextView tv = new TextView(getActivity());
-        tv.setTextSize(18);
-        tv.setPadding(32, 32, 32, 32);
+        View view = inflater.inflate(R.layout.fragment_leaderboard, container, false);
+        leaderboardRecyclerView = view.findViewById(R.id.leaderboardRecyclerView);
+        leaderboardRecyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
         dbHelper = new DBHelper(getContext());
 
-        StringBuilder result = new StringBuilder();
-        result.append("🏆 Leaderboard (Top 5 Per Quiz)\n\n");
-
-        // get quizzes
+        List<LeaderboardSection> sections = new ArrayList<>();
         Set<String> quizNames = dbHelper.getAllQuizNames();
 
         for (String quiz : quizNames) {
-            result.append("📘 ").append(quiz).append("\n");
-
             List<String> scores = dbHelper.getTopScoresForQuiz(quiz);
-            if (scores.isEmpty()) {
-                result.append("  No scores yet\n");
-            } else {
-                int rank = 1;
-                for (String row : scores) {
-                    result.append("  ").append(rank++).append(". ").append(row).append("\n");
-                }
-            }
-
-            result.append("\n");
+            sections.add(new LeaderboardSection(quiz, scores));
         }
 
-        tv.setText(result.toString());
-        return tv;
+        LeaderboardAdapter adapter = new LeaderboardAdapter(sections);
+        leaderboardRecyclerView.setAdapter(adapter);
+
+        return view;
     }
 }
